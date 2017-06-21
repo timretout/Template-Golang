@@ -17,3 +17,18 @@ WriteMakefile(
 	# Un-comment this if you add C files to link with later:
     # OBJECT            => '$(O_FILES)', # link all the C files too
 );
+
+sub MY::postamble {
+	return <<'END';
+
+$(C_FILES): libtemplategolang.h
+
+libtemplategolang.h: html.go $(INST_ARCHAUTODIR)/libtemplategolang.so
+	touch $@
+
+$(INST_ARCHAUTODIR)/libtemplategolang.so: html.go
+	go build -buildmode=c-shared -o libtemplategolang.so html.go
+	mv libtemplategolang.so $@
+
+END
+}
