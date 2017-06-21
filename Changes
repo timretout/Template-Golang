@@ -1,0 +1,6 @@
+Revision history for Perl extension Template::Golang.
+
+0.01  Wed Jun 21 22:39:55 2017
+	- original version; created by h2xs 1.23 with options
+		-A -n Template::Golang -b 5.8.8
+
