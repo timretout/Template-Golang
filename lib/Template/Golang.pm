@@ -27,25 +27,6 @@ our @EXPORT = qw(
 
 our $VERSION = '0.01';
 
-{
-	use File::Basename;
-	use DynaLoader;
-	my (undef, $dir) = fileparse(__FILE__);
-	my @reldirs = qw(../../blib/arch/auto auto);
-	my @libs = qw(libtemplategolang.so);
-	for my $libname (@libs) {
-		my $lib;
-		for my $reldir (@reldirs) {
-			(my $package = __PACKAGE__) =~ s/::/\//;
-			my $libpath = "$dir/" . $reldir . "/" . $package . "/$libname";
-			$lib = DynaLoader::dl_load_file($libpath, 1);
-			last if $lib;
-		}
-		die "Couldn't load generated Go library $libname" unless defined $lib;
-	}
-}
-
-
 require XSLoader;
 XSLoader::load('Template::Golang', $VERSION);
 
