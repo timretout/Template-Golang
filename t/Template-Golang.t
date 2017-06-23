@@ -8,7 +8,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 1;
+use Test::More;
 BEGIN { use_ok('Template::Golang::HTML') };
 
 #########################
@@ -16,6 +16,20 @@ BEGIN { use_ok('Template::Golang::HTML') };
 # Insert your test code below, the Test::More module is use()ed here so read
 # its man page ( perldoc Test::More ) for help writing this test script.
 
+close STDOUT;
+open STDOUT, '>', \my $out
+    or die "Can't redirect STDOUT: $!";
+
 my $template = Template::Golang::HTML->new();
 
-$template->process('t/test.tmpl')
+$template->process('t/test.tmpl');
+
+is($out, <<'END');
+This is a test template.
+
+Hello, World!, 
+
+That is all.
+END
+
+done_testing();

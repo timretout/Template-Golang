@@ -1,5 +1,6 @@
 Golang.c
 Golang.o
+Golang.bs
 MYMETA.json
 MYMETA.yml
 Makefile
